@@ -17,7 +17,7 @@
 
 var year = 2015;
 var measurement = "Tonnage";
-var fish = "Total demersal";
+var fish = "Total landings";
 
 var tonnageColor = ["#ffffcc","#c7e9b4","#7fcdbb","#41b6c4","#2c7fb8"];
 var valueColor = tonnageColor;
@@ -26,11 +26,9 @@ var circleStrokeColor = circleFillColor;
 var tonnageDivisions = [100,1000,10000,100000];
 var valueDivisions = [100,1000,10000,100000];
 
-var fishList = ["Total demersal","Total pelagic","Total shellfish","Total landings","Edible crabs","Lobsters","Nephrops","Scallops","Velvet crabs","Other shellfish","Mackerel","Clams","Razor fish","Nephrops" ,"Queen scallops","Whelks","Haddock","Monkfish","Other demersal","Other pelagic","Squid","Sprats","Cod","Dabs","Dogfish","Gurnards","Hake","Halibut","Lemon sole","Ling","Megrims","Plaice","Saithe","Sandeels","Skates and rays","Whiting","Witches","Black scabbardfish","Blue ling","Forkbeard","Tusk","Bluemouth","Common mora","Greenland halibut","Rabbit fish" ,"Redfish","Roundnose grenadier","Green crabs","Catfish","Pollack","Turbot","Blue whiting","Herring","Horse mackerel","Conger eels","Wrasses","Monkfish"];
+drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions)
 
-drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions, fishList)
-
-function drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions, fishList) {
+function drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions) {
 
 	// Convert the year and measurement to a concatenated string
 	var yearString = year.toString();
@@ -146,32 +144,10 @@ function drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillCo
 				markers[i]["numFish"] = d[option];
 			}
 		});
+
+	// Add the tooltips.
 	
-	    // create a tooltip
-    var Tooltip = d3.select("#my_dataviz")
-      .append("div")
-      .attr("class", "tooltip")
-      .style("opacity", 1)
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px")
-
-    // Three function that change the tooltip when user hover / move / leave a cell
-    var mouseover = function(d) {
-      Tooltip.style("opacity", 1)
-    }
-    var mousemove = function(d) {
-      Tooltip
-        .html(d.name + "<br>" + "long: " + d.long + "<br>" + "lat: " + d.lat)
-        .style("left", (d3.mouse(this)[0]+10) + "px")
-        .style("top", (d3.mouse(this)[1]) + "px")
-    }
-    var mouseleave = function(d) {
-      Tooltip.style("opacity", 0)
-    }
-
+	
 		
 	// Add a scale for bubble size.
     var size = d3.scaleSqrt()
@@ -226,6 +202,7 @@ function drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillCo
 // List of groups (here I have one group per column)
     var years = ["2015", "2016", "2017", "2018", "2019"]
 	var measurements = ["Tonnage", "Value"]
+	var fishList = ["Total landings","Total demersal","Total pelagic","Total shellfish","Edible crabs","Lobsters","Nephrops","Scallops","Velvet crabs","Other shellfish","Mackerel","Clams","Razor fish","Nephrops" ,"Queen scallops","Whelks","Haddock","Monkfish","Other demersal","Other pelagic","Squid","Sprats","Cod","Dabs","Dogfish","Gurnards","Hake","Halibut","Lemon sole","Ling","Megrims","Plaice","Saithe","Sandeels","Skates and rays","Whiting","Witches","Black scabbardfish","Blue ling","Forkbeard","Tusk","Bluemouth","Common mora","Greenland halibut","Rabbit fish" ,"Redfish","Roundnose grenadier","Green crabs","Catfish","Pollack","Turbot","Blue whiting","Herring","Horse mackerel","Conger eels","Wrasses","Monkfish"]
 
 // Initialize the buttons
 var yearButton = d3.select("#yearButtonHere")
@@ -265,28 +242,28 @@ yearButton // Add a button
 yearButton.on("change", function(d) {
 
     // recover the option that has been chosen
-    var year = d3.select(this).property("value")
+    year = d3.select(this).property("value")
 
     // run the updateChart function with this selected option
-    drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions, fishList)
+    drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions)
 })
 
 measurementButton.on("change", function(d) {
 
     // recover the option that has been chosen
-    var measurement = d3.select(this).property("value")
+    measurement = d3.select(this).property("value")
 
     // run the updateChart function with this selected option
-    drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions, fishList)
+    drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions)
 })
 
 fishButton.on("change", function(d) {
 
     // recover the option that has been chosen
-    var fish = d3.select(this).property("value")
+    fish = d3.select(this).property("value")
 
     // run the updateChart function with this selected option
-    drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions, fishList)
+    drawMap(year, measurement, fish, tonnageColor, valueColor, circleFillColor, circleStrokeColor, tonnageDivisions, valueDivisions)
 })
 
 </script>
